@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урсус</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static "main/css/layout.css" %}">
+
+  </head>
+
+  <body>
+    
+    <div id="header">
+      
+      <div class="container">
+      
+        <a href="/" title="Урсус - Головна сторінка">
+          <img id="logo" src="{% static "main/img/ursus.gif" %}" alt="Урсус">
+        </a>
+
+      </div>
+    </div>
+  
+    {% block content %}
+    {% endblock %}
+
+    <footer id="footer">
+      <div class="container">
+        
+        <div class="row">
+          <div class="col-md-6">
+            Для отримання знижки звертайтесь до працівників нашої компанії, які завжди нададуть Вам професійні поради щодо покрівлі, розрахують комплектацію даху і з розумінням підуть назустріч клієнту.
+            <br>Телефонуйте:(031) 31 74 105;    (067) 67 372 53;    (050) 438 48 01           Будемо раді співпраці з Вами!<br>
+            © 2008-2016 ТзОВ «Урсус Закарпаття» - черепиця EURONIT, NELSKAMP, CREATON, KORAMIC, RATHSCHECK, ДАХОВІ АКСЕСУАРИ, Мансардні вікна VELUX.
+          </div>
+
+          <div class="col-md-4">
+            ТзОВ "УРСУС Закарпаття"
+            <br>Закарпатська обл.
+            <br>Мукачівський р-н.
+            <br>с. Зняцьово
+            <br>вул. Леніна 68 в
+            <br>тел. (031) 31 74 105, (050) 438 48 01
+            <br>e-mail: ursus_zakarpatja@mail.ru
+          </div>
+
+          <div class="col-md-2">
+            <a href="/admin/">Admin panel</a>
+          </div>
+
+
+        </div>
+
+      </div>
+    </footer>
+  </body>
+</html>

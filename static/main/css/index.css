@@ -1,0 +1,50 @@
+body {
+}
+
+.goods {
+	text-align: center;
+}
+
+.container {
+	display: inline-block;
+}
+
+.item {
+	text-align: left;
+	width: 40%;
+	margin: 20px;
+	background-color: orange;
+	padding: 25px;
+	min-height: 200px;
+	display: inline-block;
+}
+
+.good-name {
+	font-size: 20px;
+}
+
+.good-price {
+	margin-top: 10px;
+	font-size: 18px;
+}
+
+.good-price .btn {
+}
+
+#good-image {
+	max-height: 300px;
+	max-width: 300px;
+	margin-bottom: 20px;
+}
+
+@media (max-height: 600px) {
+	
+	.item {
+		width: 90%;
+		margin: 20px;
+		background-color: orange;
+		padding: 25px;
+		min-height: 200px;		
+	}
+
+}

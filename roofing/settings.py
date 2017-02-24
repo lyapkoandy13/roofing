@@ -25,7 +25,7 @@ SECRET_KEY = 'ixc@llnqpni!al39j1&_dcx(af*8*r8g73*pvb5&w#fizpascw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.234']
+ALLOWED_HOSTS = ['192.168.0.234','localhost','www.roof.center']
 
 
 # Application definition

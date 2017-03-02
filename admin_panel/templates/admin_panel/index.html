@@ -1,0 +1,109 @@
+{% extends 'admin_panel/layout.html' %}
+
+{% block content %}
+	{% load static %}
+	
+	<div class="container body-content">
+		
+		<table id="goods" class="table table-hover table-striped ">
+                <thead>
+                  <tr id="select-all-tr">
+                    <th>#</th>
+                    <th>Назва</th>
+                    <th>Ціна</th>
+                    <th>Редагувати</th>
+                    <th>Перемістити</th>
+                    <th>Видалити</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for good in goods %}
+                    <tr class="good-row" id="{{ good.id }}">
+                        <td>{{ good.id }}</td>
+                        <td>{{ good.name }}</td>
+                        <td>{{ good.price }}</td>
+                        <td>
+                            <form action="/admin/edit_good" method="GET"> 
+                                <button class="btn btn-success edit_good" type="submit"><span class="glyphicon glyphicon-edit"></span></button>
+                                <input type="hidden" value="{{ good.id }}" name="id"/>
+                            </form>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-info move_up"><span class="glyphicon glyphicon-arrow-up"></span></button>
+                            <button type="button" class="btn btn-info move_down"><span class="glyphicon glyphicon-arrow-down"></span></button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger remove_good"><span class="glyphicon glyphicon-trash"></span></button>
+                        </td>
+                    </tr>
+                {% endfor %}
+        
+            </tbody>
+        </table>
+        <a class="btn btn-primary" href="/admin/add_good">Add new</a>
+	</div>
+
+    <script type="text/javascript">
+        
+        $(document).ready(function(){
+
+            $(".remove_good").on('click', function(e){
+                var tr = $(this).closest("tr");
+                $.ajax({
+                    url : "/admin/ajax/remove_good/",
+                    data : { 
+                        id : tr.attr("id"),
+                        csrfmiddlewaretoken : "{{ csrf_token }}",
+                    },
+                    type : "post",
+                    success : function(data){
+                        tr.remove();
+                    }
+                });
+            });
+
+            $(".move_up").on('click', function(e){
+                var tr = $(this).closest("tr");
+                $.ajax({
+                    url : "/admin/ajax/move_up/",
+                    data : { 
+                        id : tr.attr("id"),
+                        csrfmiddlewaretoken : "{{ csrf_token }}",
+                    },
+                    type : "post",
+                    success : function(data){
+                        var tr_1 = $("#"+data);
+                        var html = tr_1.html();
+                        tr_1.html( tr.html() );
+                        tr.html( html );
+                    }
+                });
+            });
+
+            $(".move_down").on('click', function(e){
+                var tr = $(this).closest("tr");
+                $.ajax({
+                    url : "/admin/ajax/move_down/",
+                    data : { 
+                        id : tr.attr("id"),
+                        csrfmiddlewaretoken : "{{ csrf_token }}",
+                    },
+                    type : "post",
+                    success : function(data){
+                        var tr_1 = $("#"+data);
+                        var html = tr_1.html();
+                        tr_1.html( tr.html() );
+                        tr.html( html );
+                    }
+                });
+            });        
+
+
+        });
+
+        
+    </script>
+
+   
+	
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'admin_panel/layout.html' %}
+
+{% block content %}
+	{% load static %}
+	<div class="container">
+		
+		{% if state == "edit" %}
+		    <form method="post" action="/admin/edit_good/" enctype="multipart/form-data" id="good_form">
+		{% else %}
+	        <form method="post" action="/admin/add_good/" enctype="multipart/form-data" id="good_form">
+		{% endif%}
+
+			{% csrf_token %}
+			
+			{{ form.as_p }}
+	        
+	        {% if state == "edit" %}
+	        	<p>Old image: </p>
+		        <img style="margin-bottom: 20px" src="" id="old_image">
+		        <br>
+		        <input id="some_id" type="hidden" name="id" />
+	        {% endif %}
+	        <button class="btn btn-primary" class="form-control" type="submit" id="submit_good ">Save</button>
+		</form>
+
+	</div>
+
+	<script type="text/javascript">
+		$( document ).ready(function(){
+
+			if("{{ state }}"=="edit"){
+				// alert('edit');
+				$("#some_id").val("{{ some_id }}");
+				$("#id_name").val("{{ name }}");
+				$("#id_description").val("{{ description }}");
+				$("#id_price").val("{{ price }}");
+				$("#old_image").attr("src", "/media/{{ image }}");
+			}
+		});
+
+			// $('#good_form').on('submit', function(event){
+			//     event.preventDefault();
+			//     if("{{ state }}"!=="edit"){
+			// 	    $.ajax({
+			// 	        url : "/admin/ajax/add_good/", // the endpoint
+			// 	        type : "POST", // http method
+			// 	        data : {
+			// 	        	name : $('#id_name').val(),
+			// 	        	description : $('#id_description').val(),
+			// 	        	price : $('#id_price').val(),
+			// 	        	image : $('#id_image').val(),
+			// 	        	csrfmiddlewaretoken : "{{ csrf_token }}",
+			// 	        }, // data sent with the post request
+
+			// 	        // handle a successful response
+			// 	        success : function(json) {
+			// 	        	window.location.href = '/admin/';
+			// 	        	// alert(json);
+			// 	        }
+			// 	    });
+			// 	} else {
+			// 		$.ajax({
+			// 	        url : "/admin/ajax/edit_good/", // the endpoint
+			// 	        type : "POST", // http method
+			// 	        data : {
+			// 	        	name : $('#id_name').val(),
+			// 	        	description : $('#id_description').val(),
+			// 	        	price : $('#id_price').val(),
+			// 	        	image : $('#id_image').val(),
+			// 	        	csrfmiddlewaretoken : "{{ csrf_token }}",
+			// 	        	id : "{{ id }}"
+			// 	        }, // data sent with the post request
+
+			// 	        // handle a successful response
+			// 	        success : function(json) {
+			// 	        	window.location.href = '/admin/';
+			// 	        	// alert(json);
+			// 	        }
+			// 		});
+			// 	}
+			// });
+		// });
+
+	</script>
+	
+{% endblock %}

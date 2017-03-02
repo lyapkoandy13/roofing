@@ -5,11 +5,12 @@ footer {
 	padding-bottom: 50px;
 }
 
-#header {
-	background-color: orange; 
-}
-
 #logo {
 	width: auto;
 	max-height: 100px;
 }
+
+#header {
+	background-color: orange;
+}
+

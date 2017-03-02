@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Login</title>
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		{% load static %}
+
+		<link rel="shortcut icon" type="image/png" href="{% static "admin_panel/favicon.ico" %}">
+		<link href="{% static "admin_panel/css/admin.css" %}" rel="stylesheet">
+		<style>
+            body {
+                background: #eee !important;	
+            }
+
+            .wrapper {	
+                margin-top: 80px;
+                margin-bottom: 80px;
+            }
+        </style>
+	</head>
+	
+	<body class="en">
+		<div class="container wrapper">
+			<form id="login_form" role="form" class="form-signin" name="login-form" action="/" method="POST">
+		        <h3 class="form-signin-heading" style="text-align:center">Log in: <strong>Android Panel</strong></h3>
+		        <label for="inputEmail" class="sr-only">Login</label>
+		        <input style="margin-bottom: 20px;" type="text" id="user_login" name="user_login" class="form-control" placeholder="Login" required="" autofocus="">
+		        <label for="inputPassword" class="sr-only">Password</label>
+		        <input type="password" name="user_password" id="user_password" class="form-control" placeholder="Password" required="">
+		        <input type="hidden" value="user_code" name="user_code" id="user_code">
+	        </form>
+	        <button class="btn btn-lg btn-primary btn-block submit-button" type="submit">Enter</button>
+        
+	        <div class="validation">
+	        	
+	        </div>
+
+		</div>
+        
+	    <footer class="footer">
+		    <div>
+			    Developed by <a href="http://www.aits.ua/" target="_blank"><span class="reserved"> AITS</span></a>
+		    </div>
+	    </footer>
+	    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+		<script>
+            $('#user_password').keypress(function (e) {
+                var key = e.which;
+                if(key === 13)
+                {
+                   $(".submit-button").click();
+                }
+            }); 
+            $(".submit-button").click(function(){
+                console.log("sss");
+                $(".validation").html("");
+                $.ajax({
+                    type: "post",
+                    url: "/admin/ajax/check/user/",
+                    cache: false,    
+                    data: {
+                    	'user_login': $("#user_login").val(),
+                    	'user_password': $("#user_password").val(),
+                    	'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    },
+                    success: function(response){
+                        if(response === "" || response === null){
+                            $(".validation").html("<span style='color:red'>Bad login or password</span>");
+                        }
+                        else {
+                            $("#user_code").val(response);
+                            location.href = "/admin/"
+                        }
+                    }, 
+                    error: function(response){      
+                        console.log(response);
+                    }
+                });
+            });  
+        </script>
+
+	</body>
+</html>

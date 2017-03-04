@@ -11,7 +11,7 @@
 		
 	</div>
 	<input type="hidden" id="id_page" value="1">
-	<button class="btn btn-primary" id="load_goods">Load more</button>
+	<button class="btn btn-lg " id="load_goods">Load more <span class="glyphicon glyphicon-refresh"></span></button>
 </div>
 
 <script type="text/javascript">
@@ -25,7 +25,7 @@
 			// alert(data);
 			if(data=="no"){
 				$("#load_goods").hide();
-			} else { 
+			} else {
 				var html = data;
 				$(".all-goods").append(html);
 				$("#id_page").val(parseInt(page)+1);
@@ -33,13 +33,13 @@
 		});
 	}
 
-	$(document).ready(function(){
-		load_content();
+	load_content();
 
-		$("#load_goods").on('click', function(e){
-			load_content();
-		});
+	$("#load_goods").on('click', function(e){
+		load_content();
 	});
+
+	window.onunload = function(){ $("#id_page").val(1);}; 
 
 </script>
 

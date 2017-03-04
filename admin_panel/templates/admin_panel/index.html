@@ -19,13 +19,13 @@
                 <tbody>
                 {% for good in goods %}
                     <tr class="good-row" id="{{ good.id }}">
-                        <td>{{ good.id }}</td>
+                        <td class="good_position">{{ forloop.counter }}</td>
                         <td>{{ good.name }}</td>
                         <td>{{ good.price }}</td>
                         <td>
                             <form action="/admin/edit_good" method="GET"> 
                                 <button class="btn btn-success edit_good" type="submit"><span class="glyphicon glyphicon-edit"></span></button>
-                                <input type="hidden" value="{{ good.id }}" name="id"/>
+                                <input type="hidden" value="{{ good.id }}" name="some_id"/>
                             </form>
                         </td>
                         <td>
@@ -47,7 +47,7 @@
         
         $(document).ready(function(){
 
-            $(".remove_good").on('click', function(e){
+            $("#goods").on('click',".remove_good", function(e){
                 var tr = $(this).closest("tr");
                 $.ajax({
                     url : "/admin/ajax/remove_good/",
@@ -62,7 +62,7 @@
                 });
             });
 
-            $(".move_up").on('click', function(e){
+            $("#goods").on('click', ".move_up", function(e){
                 var tr = $(this).closest("tr");
                 $.ajax({
                     url : "/admin/ajax/move_up/",
@@ -72,15 +72,20 @@
                     },
                     type : "post",
                     success : function(data){
-                        var tr_1 = $("#"+data);
-                        var html = tr_1.html();
-                        tr_1.html( tr.html() );
+                        var tr1 = $("#"+data);
+                        var html = tr1.html();
+                        tr1.html( tr.html() );
                         tr.html( html );
+
+                        var tr_position = tr.find(".good_position").text();
+                        // alert(tr_position);
+                        tr.find(".good_position").text(tr1.find(".good_position").text());
+                        tr1.find(".good_position").text(tr_position);
                     }
                 });
             });
 
-            $(".move_down").on('click', function(e){
+            $("#goods").on('click',".move_down", function(e){
                 var tr = $(this).closest("tr");
                 $.ajax({
                     url : "/admin/ajax/move_down/",
@@ -90,10 +95,14 @@
                     },
                     type : "post",
                     success : function(data){
-                        var tr_1 = $("#"+data);
-                        var html = tr_1.html();
-                        tr_1.html( tr.html() );
+                        var tr1 = $("#"+data);
+                        var html = tr1.html();
+                        tr1.html( tr.html() );
                         tr.html( html );
+
+                        var tr_position = tr.find(".good_position").text();
+                        tr.find(".good_position").text(tr1.find(".good_position").text());
+                        tr1.find(".good_position").text(tr_position);
                     }
                 });
             });        

@@ -48,17 +48,18 @@ def add_good(request):
 def edit_good(request):
 
     if request.method == 'POST':
-        good = Good.objects.filter(request.POST.get("id"))
+        good = Good.objects.filter(id=int(request.POST.get("some_id")))[0]
         good.name = request.POST.get("name")
         good.description = request.POST.get("description")
         good.price = float(request.POST.get("price"))
-        os.rmtree(good.image.name)
+        good.image.delete()
+        good.save()
         good.image = request.FILES.get("image")
         good.save()
 
         return redirect('/admin/')
     else:
-        some_id = request.GET.get("id")
+        some_id = request.GET["some_id"]
 
         good = Good.objects.get(id=int(some_id))
         
@@ -69,7 +70,7 @@ def edit_good(request):
 
         form = GoodForm()
     
-    return render(request, 'admin_panel/good.html', { 'form' : form, 'id' : some_id, 'state' : 'edit', 'name' : name, 'price' : price, 'image' : image, 'description' : description })
+    return render(request, 'admin_panel/good.html', { 'form' : form, 'some_id' : some_id, 'state' : 'edit', 'name' : name, 'price' : price, 'image' : image, 'description' : description })
 
 def ajax_remove_good(request):
     Good.objects.filter(id=int(request.POST.get('id'))).delete()
@@ -77,7 +78,7 @@ def ajax_remove_good(request):
 
 def ajax_move_up(request):
     try:
-        good_higher = Good.objects.filter(id__lt=int(request.POST.get("id"))).order_by('id')[0]
+        good_higher = Good.objects.filter(id__lt=int(request.POST.get("id"))).order_by('-id')[0]
         good_current = Good.objects.filter(id=int(request.POST.get("id")))[0]
         
         name = good_current.name

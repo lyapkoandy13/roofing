@@ -15,31 +15,41 @@ def ajax_get_goods(request):
 		goods = Good.objects.all()
 		paginator = Paginator(goods, 10)
 		goods = paginator.page(int(request.POST.get("page")))
+		some_i = 1
 		html = ""
 
 		for good in goods:
-			html += ("<div class=\"item\">"
-				
-					+ "<div class=\"col-sm-6\">"
-					+	"<div class=\"row\">"
-					+		"<img src=\""+"media/"+str(good.image)+"\" id=\"good-image\" alt=\"Черепиця\">"
-					+	"</div>"
-					+	"<div class=\"row\">"
-					+		"<span class=\"good-price\">Ціна: "+str(good.price)+"</span>"
-					+	"</div>"
-
-					+ "</div>"
-
-					+ "<div class=\"col-sm-6\">"
-					+	"<div class=\"row\">"
-					+		"<span class=\"good-name\">"+good.name+"</span>"
-					+	"</div>"
-					+	"<div class=\"row\">"
-					+		"<span class=\"good-description\">"+good.description+"</span>"
-					+	"</div>"
-					+ "</div>"
+			if (some_i % 2) == 1:
+				html += "<div class=\"row\">"
 			
+
+			html += ("<div class=\"col-sm-6 item\">"
+					+	"<div class=\"panel\">"
+						
+						+	"<div class=\"row good-image\">"
+						+		"<img src=\""+"media/"+str(good.image)+"\" id=\"good-image\" alt=\"Черепиця\">"
+						+	"</div>"
+
+						+	"<div class=\"row good-name\">"
+						+		"<h3>"+good.name+"</h3>"
+						+	"</div>"
+						
+						+	"<div class=\"row good-description\">"
+						+		"<span>"+good.description+"</span>"
+						+	"</div>"
+
+						+	"<div class=\"row good-price\">"
+						+		"<h4>Ціна: "+str(good.price)+"</h4>"
+						+	"</div>"
+			
+					+	"</div>"
+					
 				+"</div>")
+			
+			if (some_i % 2) == 0:
+				html += "</div>"
+
+			some_i = some_i + 1
 	except Exception:
 		return HttpResponse("no")
 

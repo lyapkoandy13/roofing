@@ -6,11 +6,32 @@
 
 <link rel="stylesheet" type="text/css" href="{% static "main/css/index.css" %}">
 
+<div class="filters">
+	
+	<div class="row">
+		<div class="btn-group">
+		    <button id="button-price" class="btn" style="background-color: orange">Ціна <span id="price-icon" class="glyphicon glyphicon-arrow-down"></span></button>
+			<button id="button-name" class="btn" style="background-color: orange">Назва <span id="name-icon" class="glyphicon glyphicon-arrow-down"></span></button>
+		</div>
+	</div>
+
+	<div class="row">
+		<h4 id="filter_name">Немає фільтру</h4>
+	</div>
+<!--<div class="input-group">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Пошук</button>
+      </span>
+      <input type="text" class="form-control" placeholder="Пошук за назвою..">
+    </div>-->   
+</div>
+
 <div class="goods">
 	<div class="container all-goods">
 		
 	</div>
 	<input type="hidden" id="id_page" value="1">
+	<input type="hidden" id="id_filter" value="default">
 	<button class="btn btn-lg " id="load_goods">Load more <span class="glyphicon glyphicon-refresh"></span></button>
 </div>
 
@@ -19,9 +40,9 @@
   		data: { csrfmiddlewaretoken: '{{ csrf_token }}' },
 	});
 	
-	var load_content = function(){
+	var load_content = function(filter="default"){
 		var page = $("#id_page").val();
-		$.post("/ajax/get_goods/", { 'page' : page } ,function (data) {
+		$.post("/ajax/get_goods/", { 'page' : page, 'filter' : filter } ,function (data) {
 			// alert(data);
 			if(data=="no"){
 				$("#load_goods").hide();
@@ -35,8 +56,55 @@
 
 	load_content();
 
+	$("#button-price").on('click', function(e){
+		if($("#price-icon").hasClass("glyphicon-arrow-down")){ 
+			$("#id_page").val(1);
+			$(".all-goods").empty();
+			load_content("price_asc");
+			$("#price-icon").removeClass("glyphicon-arrow-down");
+			$("#price-icon").addClass("glyphicon-arrow-up");
+			$("#id_filter").val("price_asc");
+
+			$("#filter_name").text("Ціни по зростанню");
+		} else {
+			$("#id_page").val(1);
+			$(".all-goods").empty();
+			load_content("price_desc");
+			$("#price-icon").removeClass("glyphicon-arrow-up");
+			$("#price-icon").addClass("glyphicon-arrow-down");
+			$("#id_filter").val("price_desc");
+			
+			$("#filter_name").text("Ціни по спаданню");
+		}
+	});
+
+	$("#button-name").on('click', function(e){
+		if($("#name-icon").hasClass("glyphicon-arrow-down")){ 
+			$("#id_page").val(1);
+			$(".all-goods").empty();
+			load_content("name_asc");
+			$("#name-icon").removeClass("glyphicon-arrow-down");
+			$("#name-icon").addClass("glyphicon-arrow-up");
+			$("#id_filter").val("name_asc");
+
+			$("#filter_name").text("Назви по зростанню");
+		} else {
+			$("#id_page").val(1);
+			$(".all-goods").empty();
+			load_content("name_desc");
+			$("#name-icon").removeClass("glyphicon-arrow-up");
+			$("#name-icon").addClass("glyphicon-arrow-down");
+			$("#id_filter").val("name_desc");
+
+			$("#filter_name").text("Назви по спаданню");
+		}
+
+
+	});
+
+
 	$("#load_goods").on('click', function(e){
-		load_content();
+		load_content($("#id_filter").val());
 	});
 
 	window.onunload = function(){ $("#id_page").val(1);}; 

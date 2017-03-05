@@ -27,48 +27,45 @@
   <body>
     
     <div id="header" style="  text-align:center;">
-      
-      <div class="container">
-      
-        <a href="/" title="Урсус - Головна сторінка">
-          <img id="logo" src="{% static "main/img/ursus.gif" %}" alt="Урсус">
-        </a>
-
-      </div>
+      <a href="/" title="Урсус - Головна сторінка">
+        <img id="logo" src="{% static "main/img/ursus.gif" %}" alt="Урсус">
+      </a>
+      <img id="roof" src="{% static "main/img/house_roof.jpg" %}" alt="roof">
     </div>
   
     {% block content %}
     {% endblock %}
-
     <footer id="footer">
       <div class="container">
+      <hr>
         
         <div class="row">
           <div class="col-md-6">
-            Для отримання знижки звертайтесь до працівників нашої компанії, які завжди нададуть Вам професійні поради щодо покрівлі, розрахують комплектацію даху і з розумінням підуть назустріч клієнту.
-            <br>Телефонуйте:(031) 31 74 105;    (067) 67 372 53;    (050) 438 48 01           Будемо раді співпраці з Вами!<br>
-            © 2008-2016 ТзОВ «Урсус Закарпаття» - черепиця EURONIT, NELSKAMP, CREATON, KORAMIC, RATHSCHECK, ДАХОВІ АКСЕСУАРИ, Мансардні вікна VELUX.
+            Для отримання знижки звертайтесь до працівників нашої компанії, які завжди нададуть Вам професійні поради щодо покрівлі, розрахують комплектацію даху і з розумінням підуть назустріч клієнту. Будемо раді співпраці з Вами!<br>
+            Ми працюємо з такими брендами - черепиця EURONIT, NELSKAMP, CREATON, KORAMIC, RATHSCHECK, ДАХОВІ АКСЕСУАРИ, Мансардні вікна VELUX.
           </div>
 
           <div class="col-md-6">
-            ТзОВ "УРСУС Закарпаття"
-            <br>Закарпатська обл.
-            <br>Мукачівський р-н.
-            <br>с. Зняцьово
-            <br>вул. Леніна 68 в
-            <br>тел. (031) 31 74 105, (050) 438 48 01
-            <br>e-mail: ursus_zakarpatja@mail.ru
+            © 2008 ТзОВ "УРСУС Закарпаття" 
+            <br>Закарпатська обл. 
+            <br>Мукачівський р-н. 
+            <br>с. Зняцьово вул. Леніна 68 в 
+            <br>тел. (031) 31 74 105; (067) 67 372 53; (050) 438 48 01 
+            <br>e-mail: office.roofcenter@gmail.com
+            <br><a style="color: black;" href="http://ursus.com.ua">http://ursus.com.ua</a>
           </div>
 
           
         </div>
 
-      </div>
-      <div class="copyright">
-        <span class="copy">©</span>2017 AITS
-        <a target="_blank" href="/admin/"><img width="20" src="{% static "main/img/enter-icon.png" %}" alt=""></a>  
+      <hr>
       </div>
     </footer>
+    <div class="copyright">
+      <span class="copy">©</span>2017 AITS
+      <a target="_blank" href="/admin/"><img width="20" src="{% static "main/img/enter-icon.png" %}" alt=""></a>  
+    </div>
+    
   </body>
 
 </html>

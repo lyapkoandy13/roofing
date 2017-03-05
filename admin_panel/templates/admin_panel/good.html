@@ -5,6 +5,8 @@
 	<div class="container">
 		
 		{% if state == "edit" %}
+		    <h2>Товар {{ some_id }}</h2>
+		    <hr style="border-color: white;">
 		    <form method="post" action="/admin/edit_good/" enctype="multipart/form-data" id="good_form">
 		{% else %}
 	        <form method="post" action="/admin/add_good/" enctype="multipart/form-data" id="good_form">
@@ -36,6 +38,11 @@
 				$("#id_price").val("{{ price }}");
 				$("#old_image").attr("src", "/media/{{ image }}");
 			}
+
+			$("#id_name").addClass("form-control");
+			$("#id_description").addClass("form-control");
+			$("#id_price").addClass("form-control");
+			$("#id_image").addClass("form-control");
 		});
 
 			// $('#good_form').on('submit', function(event){

@@ -13,13 +13,6 @@
 body{
 	font-family: "Circe-Regular";
 	text-align: center;
-	background-color: #F5E685;
-}
-
-.copyright{
-	text-align: right;
-	margin-right: 10px;
-	margin-top: 10px;
 }
 
 #header {
@@ -42,6 +35,11 @@ body{
 }
 
 .good-description {
+	display: block; /* or inline-block */
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+	overflow: hidden;
+	max-height: 20px;
 	margin-bottom: 10px;
 	word-wrap: break-word;
 }
@@ -58,4 +56,17 @@ body{
 #good-image {
 	height: 200px;
 	/*margin-bottom: 20px;*/
+}
+
+#load_goods {
+	background-color: orange; 
+}
+
+#filters {
+	text-align: center;
+}
+.input-group {
+	float: right;
+	margin-right: 15%;
+	width: 40%;
 }

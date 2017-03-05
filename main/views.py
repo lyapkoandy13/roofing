@@ -12,7 +12,19 @@ def index(request):
 
 def ajax_get_goods(request):
 	try:
-		goods = Good.objects.all()
+		some_filter = request.POST.get("filter")
+		if (some_filter is None) or (some_filter == "default"):
+			goods = Good.objects.all()
+		elif some_filter == "price_asc":
+			goods = Good.objects.order_by('price')
+		elif some_filter == "price_desc":
+			goods = Good.objects.order_by('-price')
+		elif some_filter == "name_asc":
+			goods = Good.objects.order_by('name')
+		elif some_filter == "name_desc":
+			goods = Good.objects.order_by('-name')
+		else:
+			goods = Good.objects.filter(name=some_filter)
 		paginator = Paginator(goods, 10)
 		goods = paginator.page(int(request.POST.get("page")))
 		some_i = 1
@@ -39,7 +51,7 @@ def ajax_get_goods(request):
 						+	"</div>"
 
 						+	"<div class=\"row good-price\">"
-						+		"<h4>Ціна: "+str(good.price)+"</h4>"
+						+		"<h4>Ціна: "+str(good.price)+"€</h4>"
 						+	"</div>"
 			
 					+	"</div>"

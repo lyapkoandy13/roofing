@@ -17,7 +17,7 @@
 			{{ form.as_p }}
 	        
 	        {% if state == "edit" %}
-	        	<p>Old image: </p>
+	        	<p>Старе зображення: </p>
 		        <img style="margin-bottom: 20px" src="" id="old_image">
 		        <br>
 		        <input id="some_id" type="hidden" name="some_id" />
@@ -35,6 +35,7 @@
 				$("#some_id").val("{{ some_id }}");
 				$("#id_name").val("{{ name }}");
 				$("#id_description").val("{{ description }}");
+				$("#id_price").val("{{ price }}");
 				$("#id_price").val("{{ price }}");
 				$("#old_image").attr("src", "/media/{{ image }}");
 			}

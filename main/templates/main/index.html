@@ -8,17 +8,20 @@
 
 <div class="filters">
 	
-	<div class="row">
-		<div class="btn-group">
-		    <button id="button-price" class="btn" style="background-color: orange">Ціна <span id="price-icon" class="glyphicon glyphicon-arrow-down"></span></button>
-			<button id="button-name" class="btn" style="background-color: orange">Назва <span id="name-icon" class="glyphicon glyphicon-arrow-down"></span></button>
-		</div>
+	<div class="row" style="text-align: -webkit-center;">
+	    <button id="button-price" class="btn" style="background-color: orange">Ціна <span id="price-icon" class="glyphicon glyphicon-arrow-down"></span></button>
+	    <div style="width:40%; margin-top: 25px" class="input-group">
+		  <input type="text" id="search-input" class="form-control" placeholder="Пошук за назвою..">
+	      <span class="input-group-btn">
+	        <button id="button-search" style="background-color: orange" class="btn btn-default" type="button">Пошук</button>
+	      </span>
+        </div>
 	</div>
 
-	<div class="row">
+<!--	<div class="row">
 		<h4 id="filter_name">Немає фільтру</h4>
 	</div>
-<!--<div class="input-group">
+<div class="input-group">
       <span class="input-group-btn">
         <button class="btn btn-default" type="button">Пошук</button>
       </span>
@@ -30,9 +33,31 @@
 	<div class="container all-goods">
 		
 	</div>
+	<div id="myModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h3 class="modal-title">Modal Header</h4>
+	      </div>
+	      <div class="modal-body">
+	        <img id="modal-image" src="">
+	        <h4>Опис товару:</h4>
+	        <p id="modal-text">Some text in the modal.</p>
+	      	<h4 id="modal-price">Ціна</h4>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
+	      </div>
+	    </div>
+
+	  </div>
+	</div>
 	<input type="hidden" id="id_page" value="1">
 	<input type="hidden" id="id_filter" value="default">
-	<button class="btn btn-lg " id="load_goods">Load more <span class="glyphicon glyphicon-refresh"></span></button>
+	<button class="btn btn-lg " id="load_goods">Завантажити ще <span class="glyphicon glyphicon-refresh"></span></button>
 </div>
 
 <script type="text/javascript">
@@ -50,6 +75,16 @@
 				var html = data;
 				$(".all-goods").append(html);
 				$("#id_page").val(parseInt(page)+1);
+
+				$(".item").on('click', function(e){
+					$('#myModal').find(".modal-title").text($(this).find(".good-name").text());
+					$('#myModal').find("#modal-image").attr('src',$(this).find("img").attr("src"));
+					$('#myModal').find("#modal-text").text($(this).find(".good-description").text());
+					$('#myModal').find("#modal-price").text($(this).find(".good-price").text());
+					$('#myModal').css("width : 1000px");
+					$('#myModal').modal('show'); 
+				});
+
 			}
 		});
 	}
@@ -66,6 +101,7 @@
 			$("#id_filter").val("price_asc");
 
 			$("#filter_name").text("Ціни по зростанню");
+			$("#load_goods").show();	
 		} else {
 			$("#id_page").val(1);
 			$(".all-goods").empty();
@@ -75,6 +111,7 @@
 			$("#id_filter").val("price_desc");
 			
 			$("#filter_name").text("Ціни по спаданню");
+			$("#load_goods").show();
 		}
 	});
 
@@ -87,7 +124,7 @@
 			$("#name-icon").addClass("glyphicon-arrow-up");
 			$("#id_filter").val("name_asc");
 
-			$("#filter_name").text("Назви по зростанню");
+			$("#load_goods").show();
 		} else {
 			$("#id_page").val(1);
 			$(".all-goods").empty();
@@ -96,12 +133,17 @@
 			$("#name-icon").addClass("glyphicon-arrow-down");
 			$("#id_filter").val("name_desc");
 
-			$("#filter_name").text("Назви по спаданню");
+			$("#load_goods").show();
 		}
-
-
 	});
 
+	$("#button-search").on('click', function(e){
+		$("#id_page").val(1);
+		$(".all-goods").empty();
+		$("#id_filter").val($("#search-input").val());
+		load_content($("#search-input").val());
+		$("#load_goods").show();
+	});
 
 	$("#load_goods").on('click', function(e){
 		load_content($("#id_filter").val());

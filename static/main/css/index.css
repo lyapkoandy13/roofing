@@ -13,21 +13,24 @@
 body{
 	font-family: "Circe-Regular";
 	text-align: center;
+	width: 98%;
 }
 
 #header {
 	margin-bottom: 50px;
 }
-/*
+
 .item {
-	text-align: center;
+	/*text-align: center;
 	width: 40%;
 	margin: 20px;
 	padding: 25px;
 	min-height: 200px;
-	display: inline-block;
+	display: inline-block;*/
+	cursor: pointer;
 }
-*/
+
+
 .good-name {
 	/*height: 60px;*/
 	margin-bottom: 10px;
@@ -39,7 +42,8 @@ body{
 	text-overflow: ellipsis;
 	word-wrap: break-word;
 	overflow: hidden;
-	max-height: 20px;
+	max-height: 60px;
+	/*width: 75%;*/
 	margin-bottom: 10px;
 	word-wrap: break-word;
 }
@@ -54,7 +58,7 @@ body{
 }
 
 #good-image {
-	height: 200px;
+	height: 250px;
 	/*margin-bottom: 20px;*/
 }
 
@@ -65,8 +69,8 @@ body{
 #filters {
 	text-align: center;
 }
-.input-group {
-	float: right;
-	margin-right: 15%;
-	width: 40%;
+
+.modal-content {
+	display: inline-block;
+	min-width: 500px;
 }

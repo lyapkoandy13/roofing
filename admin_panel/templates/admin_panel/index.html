@@ -10,10 +10,10 @@
                   <tr id="select-all-tr">
                     <th>#</th>
                     <th>Назва</th>
+                    <th>Опис</th>
                     <th>Ціна</th>
-                    <th>Редагувати</th>
-                    <th>Перемістити</th>
-                    <th>Видалити</th>
+                    <th></th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -21,18 +21,17 @@
                     <tr class="good-row" id="{{ good.id }}">
                         <td class="good_position">{{ forloop.counter }}</td>
                         <td>{{ good.name }}</td>
+                        <td>{{ good.description|slice:":50" }}</td>
                         <td>{{ good.price }}</td>
-                        <td>
+                        <td style="display: inline-block;">
                             <form action="/admin/edit_good" method="GET"> 
-                                <button class="btn btn-success edit_good" type="submit"><span class="glyphicon glyphicon-edit"></span></button>
+                                <button class="btn btn-success edit_good" type="submit">Редагувати <span class="glyphicon glyphicon-edit"></span></button>
                                 <input type="hidden" value="{{ good.id }}" name="some_id"/>
                             </form>
                         </td>
                         <td>
                             <button type="button" class="btn btn-info move_up"><span class="glyphicon glyphicon-arrow-up"></span></button>
                             <button type="button" class="btn btn-info move_down"><span class="glyphicon glyphicon-arrow-down"></span></button>
-                        </td>
-                        <td>
                             <button type="button" class="btn btn-danger remove_good"><span class="glyphicon glyphicon-trash"></span></button>
                         </td>
                     </tr>

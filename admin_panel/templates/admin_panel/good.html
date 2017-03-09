@@ -22,7 +22,7 @@
 		        <br>
 		        <input id="some_id" type="hidden" name="some_id" />
 	        {% endif %}
-	        <button class="btn btn-primary" class="form-control" type="submit" id="submit_good ">Save</button>
+	        <button class="btn btn-primary" class="form-control" type="submit" id="submit_good ">Зберегти</button>
 		</form>
 
 	</div>
@@ -30,12 +30,16 @@
 	<script type="text/javascript">
 		$( document ).ready(function(){
 
+			$('label[for="id_name"]').text('Назва');
+			$('label[for="id_description"]').text('Опис');
+			$('label[for="id_price"]').text('Ціна');
+			$('label[for="id_image"]').text('Зображення');
+
 			if("{{ state }}"=="edit"){
 				// alert('edit');
 				$("#some_id").val("{{ some_id }}");
 				$("#id_name").val("{{ name }}");
 				$("#id_description").val("{{ description }}");
-				$("#id_price").val("{{ price }}");
 				$("#id_price").val("{{ price }}");
 				$("#old_image").attr("src", "/media/{{ image }}");
 			}

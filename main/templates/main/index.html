@@ -8,25 +8,13 @@
 
 <div class="filters">
 	
-	<div class="row" style="text-align: -webkit-center;">
 	    <button id="button-price" class="btn" style="background-color: orange">Ціна <span id="price-icon" class="glyphicon glyphicon-arrow-down"></span></button>
-	    <div style="width:40%; margin-top: 25px" class="input-group">
+	    <div class="input-group" id="search-bar">
 		  <input type="text" id="search-input" class="form-control" placeholder="Пошук за назвою..">
 	      <span class="input-group-btn">
 	        <button id="button-search" style="background-color: orange" class="btn btn-default" type="button">Пошук</button>
 	      </span>
         </div>
-	</div>
-
-<!--	<div class="row">
-		<h4 id="filter_name">Немає фільтру</h4>
-	</div>
-<div class="input-group">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Пошук</button>
-      </span>
-      <input type="text" class="form-control" placeholder="Пошук за назвою..">
-    </div>-->   
 </div>
 
 <div class="goods">
@@ -43,7 +31,9 @@
 	        <h3 class="modal-title">Modal Header</h4>
 	      </div>
 	      <div class="modal-body">
-	        <img id="modal-image" src="">
+		      <div id="modal-image-div">
+			      <img id="modal-image" src="">
+		      </div>
 	        <h4>Опис товару:</h4>
 	        <p id="modal-text">Some text in the modal.</p>
 	      	<h4 id="modal-price">Ціна</h4>
@@ -81,7 +71,6 @@
 					$('#myModal').find("#modal-image").attr('src',$(this).find("img").attr("src"));
 					$('#myModal').find("#modal-text").text($(this).find(".good-description").text());
 					$('#myModal').find("#modal-price").text($(this).find(".good-price").text());
-					$('#myModal').css("width : 1000px");
 					$('#myModal').modal('show'); 
 				});
 

@@ -52,10 +52,14 @@ def edit_good(request):
         good.name = request.POST.get("name")
         good.description = request.POST.get("description")
         good.price = float(request.POST.get("price"))
-        good.image.delete()
-        good.save()
-        good.image = request.FILES.get("image")
-        good.save()
+        if len(request.FILES) != 0:
+            good.image.delete()
+            good.save()
+            good.image = request.FILES.get("image")
+            good.save()
+        else:
+            good.save()
+
 
         return redirect('/admin/')
     else:

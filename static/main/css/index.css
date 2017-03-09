@@ -13,7 +13,7 @@
 body{
 	font-family: "Circe-Regular";
 	text-align: center;
-	width: 98%;
+	/*width: 98%;*/
 }
 
 #header {
@@ -27,7 +27,6 @@ body{
 	padding: 25px;
 	min-height: 200px;
 	display: inline-block;*/
-	cursor: pointer;
 }
 
 
@@ -57,9 +56,23 @@ body{
 	/*box-shadow: 5px 0 10px rgba(0,0,0,0.5);*/
 }
 
-#good-image {
+.good-image {
+	cursor: pointer;
 	height: 250px;
+	position: relative;
+}
+
+#good-image {
+	width: 100%;
+	height: auto;
+	max-height: 250px;
 	/*margin-bottom: 20px;*/
+	/*position: absolute;
+    margin: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;*/
 }
 
 #load_goods {
@@ -70,7 +83,20 @@ body{
 	text-align: center;
 }
 
-.modal-content {
-	display: inline-block;
-	min-width: 500px;
+.modal-dialog {
+	min-width: 75%;
+	max-width: 100%;
+}
+
+.filters {
+	text-align: -webkit-center;
+}
+
+#search-bar {
+	margin-top: 25px;
+	width: 75%;
+}
+
+#modal-image-div {
+	overflow: auto;
 }

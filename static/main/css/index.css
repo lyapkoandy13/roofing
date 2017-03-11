@@ -98,5 +98,12 @@ body{
 }
 
 #modal-image-div {
+	margin-top: 15px !important;
+	margin-bottom: 15px !important;
 	overflow: auto;
+}
+
+.modal-close {
+	margin-top: 15px !important;
+	margin-bottom: 15px !important;
 }

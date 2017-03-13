@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ixc@llnqpni!al39j1&_dcx(af*8*r8g73*pvb5&w#fizpascw'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['192.168.0.234','localhost','www.roof.center']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -131,3 +131,13 @@ STATICFILES_DIRS = (
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Email settings
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'robot@aits.ua'
+EMAIL_HOST_PASSWORD = '37Rh!_09=S/U'
+EMAIL_PORT = 587
+
+ADMINS = [('Andy','lyapkoandy13@gmail.com'), ('Sergiy', 'director@aits.ua')]

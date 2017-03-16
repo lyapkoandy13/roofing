@@ -31,11 +31,11 @@ def ajax_get_goods(request):
 		html = ""
 
 		for good in goods:
-			if (some_i % 2) == 1:
+			if (some_i % 3) == 1 or some_i == 1:
 				html += "<div class=\"row\">"
 			
 
-			html += ("<div class=\"col-sm-6 item\">"
+			html += ("<div class=\"col-sm-4 item\">"
 					+	"<div class=\"panel\">"
 						
 						+	"<div class=\"row good-image\">"
@@ -58,7 +58,7 @@ def ajax_get_goods(request):
 					
 				+"</div>")
 			
-			if (some_i % 2) == 0:
+			if (some_i % 3) == 0:
 				html += "</div>"
 
 			some_i = some_i + 1

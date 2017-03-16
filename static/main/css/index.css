@@ -53,13 +53,16 @@ body{
 }
 
 .good-image {
+	position:relative;
+	/*height: 240px;*/
 	cursor: pointer;
-	position: relative;
+    vertical-align: middle;
+    text-align: center;
 }
 
 #good-image {
-	max-width: 240px;
 	max-height: 240px;
+	max-width: 100%;
 }
 
 #load_goods {
@@ -80,7 +83,7 @@ body{
 }
 
 #search-bar {
-	width: 75%;
+	width: 80%;
 }
 
 #modal-image-div {

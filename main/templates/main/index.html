@@ -7,16 +7,17 @@
 <link rel="stylesheet" type="text/css" href="{% static "main/css/index.css" %}">
 
 <div class="filters">
-	
+	<div class="container">
 	    <div class="input-group" id="search-bar">
-		  <span class="input-group-btn">
-	        <button id="button-search" style="background-color: orange" class="btn btn-default" type="button">Пошук</button>
-	      </span>
-          <input type="text" id="search-input" class="form-control" placeholder="Пошук за назвою..">
 	      <span class="input-group-btn">
 		      <button id="button-price" class="btn" style="background-color: orange">Ціна <span id="price-icon" class="glyphicon glyphicon-arrow-down"></span></button>
 	      </span>
+          <input type="text" id="search-input" class="form-control" placeholder="Пошук за назвою..">
+		  <span class="input-group-btn">
+	        <button id="button-search" style="background-color: orange" class="btn btn-default" type="button">Пошук</button>
+	      </span>
         </div>
+    </div>
 </div>
 
 <div class="goods">

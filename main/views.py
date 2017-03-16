@@ -25,7 +25,7 @@ def ajax_get_goods(request):
 			goods = Good.objects.order_by('-name')
 		else:
 			goods = Good.objects.filter(name__contains=some_filter)
-		paginator = Paginator(goods, 10)
+		paginator = Paginator(goods, 9)
 		goods = paginator.page(int(request.POST.get("page")))
 		some_i = 1
 		html = ""

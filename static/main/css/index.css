@@ -15,10 +15,9 @@ body{
 	text-align: center;
 }
 
-#header {
-	margin-bottom: 50px;
+.goods {
+	margin-top: 25px;
 }
-
 .good-name {
 	font-size: 24px;
     line-height: 1.24;
@@ -47,22 +46,33 @@ body{
 .panel {
 	height: 100%;
 	/*height: 500px;*/
-	padding: 50px;
 	background-color: #F5E685;
 	box-shadow: none;
+    background-color: #eadc7d;
+	cursor: pointer;
 }
 
 .good-image {
-	position:relative;
-	/*height: 240px;*/
-	cursor: pointer;
+	display: block;
+    position: relative;
     vertical-align: middle;
-    text-align: center;
+    overflow: hidden;
+	height: 300px;
+	width: 100%;
+	margin: 0;
+	width: 100%;
 }
 
 #good-image {
-	max-height: 240px;
-	max-width: 100%;
+    display: block;
+   position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 #load_goods {
@@ -83,7 +93,7 @@ body{
 }
 
 #search-bar {
-	width: 80%;
+	width: 70%;
 }
 
 #modal-image-div {

@@ -35,7 +35,7 @@ def ajax_get_goods(request):
 				html += "<div class=\"row\">"
 			
 
-			html += ("<div class=\"col-sm-4 item\">"
+			html += ("<div class=\"col-sm-6 col-md-4 item\">"
 					+	"<div class=\"panel\">"
 						
 						+	"<div class=\"row good-image\">"
@@ -46,7 +46,7 @@ def ajax_get_goods(request):
 						+		"<h3>"+good.name+"</h3>"
 						+	"</div>"
 						
-						+	"<div class=\"row good-description\">"
+						+	"<div style=\"display: none;\" class=\"row good-description\">"
 						+		"<span>"+good.description+"</span>"
 						+	"</div>"
 

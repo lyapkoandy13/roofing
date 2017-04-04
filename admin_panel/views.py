@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib import auth
 from django.shortcuts import redirect
 from main.models import Good
+from main.models import Image
 from admin_panel.forms import GoodForm
 import os
 
@@ -36,48 +37,66 @@ def logout(request):
     return redirect('/admin/')
 
 def add_good(request):
-    if request.method == 'POST':
-        form = GoodForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('/admin/')
+    if request.method == 'POST': 
+        name = request.POST.get('name')
+        description = request.POST.get('description')
+        price = float(request.POST.get('price'))
+        images = request.FILES.getlist('images')
+        
+        good = Good()
+        good.name = name
+        good.description = description
+        good.price = price
+        good.save()
+
+        for image in images:
+            imageModel = Image()
+            imageModel.image = image
+            imageModel.save()
+            good.images.add(imageModel)
+
+        return redirect('/admin/')
     else:
-        form = GoodForm()
-    return render(request, 'admin_panel/good.html', { 'form' : form })
+        pass
+    return render(request, 'admin_panel/good.html')
 
 def edit_good(request):
 
     if request.method == 'POST':
-        good = Good.objects.filter(id=int(request.POST.get("some_id")))[0]
+        good = Good.objects.filter(id=int(request.POST.get("good-id")))[0]
         good.name = request.POST.get("name")
         good.description = request.POST.get("description")
         good.price = float(request.POST.get("price"))
-        if len(request.FILES) != 0:
-            good.image.delete()
-            good.save()
-            good.image = request.FILES.get("image")
-            good.save()
-        else:
-            good.save()
+        good.save()
 
+        if len(request.FILES) != 0:
+            images = request.FILES.getlist('images')
+            for image in images:
+                imageModel = Image()
+                imageModel.image = image
+                imageModel.save()
+                good.images.add(imageModel)
 
         return redirect('/admin/')
     else:
-        some_id = request.GET["some_id"]
+        good_id = request.GET.get('good-id')
 
-        good = Good.objects.get(id=int(some_id))
+        good = Good.objects.get(id=int(good_id))
         
         name = good.name
         description = good.description
         price = good.price
-        image = good.image
+        images = good.images.all()
 
-        form = GoodForm()
+        # form = GoodForm()
     
-    return render(request, 'admin_panel/good.html', { 'form' : form, 'some_id' : some_id, 'state' : 'edit', 'name' : name, 'price' : price, 'image' : image, 'description' : description })
+    return render(request, 'admin_panel/good.html', { 'good_id' : good_id, 'state' : 'edit', 'name' : name, 'price' : price, 'images' : images, 'description' : description })
 
 def ajax_remove_good(request):
-    Good.objects.filter(id=int(request.POST.get('id'))).delete()
+    good = Good.objects.filter(id=int(request.POST.get('id')))
+    for image in good.images:
+        image.delete()
+    good.delete()
     return HttpResponse('OK')
 
 def ajax_move_up(request):
@@ -131,3 +150,12 @@ def ajax_move_down(request):
         pass
 
     return HttpResponse(good_lower.id)
+
+def ajax_delete_image(request):
+    # try:
+    some_id = request.POST.get('some_id')
+    Image.objects.filter(id=int(some_id)).delete()
+    # except:
+    #     return HttpResponse('no')
+    return HttpResponse('ok')
+

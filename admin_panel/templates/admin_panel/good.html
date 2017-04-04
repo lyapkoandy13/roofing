@@ -1,27 +1,80 @@
 {% extends 'admin_panel/layout.html' %}
 
 {% block content %}
+	
 	{% load static %}
+
+	<link rel="stylesheet" type="text/css" href="{% static "main/css/good.css" %}">
+
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
+	<link rel="stylesheet" type="text/css" href="http://kenwheeler.github.io/slick/slick/slick-theme.css"/>
+
+	<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+				
 	<div class="container">
 		
 		{% if state == "edit" %}
-		    <h2>Товар {{ some_id }}</h2>
+		    <h2>Редагувння товару</h2>
 		    <hr style="border-color: white;">
 		    <form method="post" action="/admin/edit_good/" enctype="multipart/form-data" id="good_form">
 		{% else %}
+	        <h2>Створення товару</h2>
+		    <hr style="border-color: white;">
 	        <form method="post" action="/admin/add_good/" enctype="multipart/form-data" id="good_form">
 		{% endif%}
 
-			{% csrf_token %}
-			
-			{{ form.as_p }}
-	        
+				{% csrf_token %}
+				<p><label for="id_name">Назва</label> <input id="id_name" maxlength="255" name="name" type="text" required="" class="form-control"></p>
+				<p><label for="id_description">Опис</label> <textarea cols="40" id="id_description" name="description" rows="10" required="" class="form-control"></textarea></p>
+				<p><label for="id_price">Ціна</label> <input id="id_price" name="price" step="0.01" type="number" required="" class="form-control"></p>
+				<p><label for="id_images">Додати зображення</label> <input multiple="multiple" type="file" id="id_images" name="images" class="form-control"></p>
+	        	<input type="hidden" name="good-id" value="{{ good_id }}">
 	        {% if state == "edit" %}
-	        	<p>Старе зображення: </p>
+	        	<p>Старі зображення: </p>
+		        <!--
 		        <img style="margin-bottom: 20px" src="" id="old_image">
 		        <br>
 		        <input id="some_id" type="hidden" name="some_id" />
+	        	-->
+				<div class="container">
+					<div id="myCarousel" class="carousel slide" data-ride="carousel">
+						<ol class="carousel-indicators">
+						    {% for image in images %}
+								{% if forloop.first %}
+								    <li data-target="#myCarousel" data-slide-to="{{forloop.counter0}}" class="active"></li>
+								{% else %}
+								    <li data-target="#myCarousel" data-slide-to="{{forloop.counter0}}"></li>
+								{% endif %}
+							{% endfor %}
+					    </ol>
+						<div class="carousel-inner" role="listbox">
+							{% for image in images %}
+								{% if forloop.first %}
+									<div class="item active">
+										<img src="/media/{{ image.image }}" alt="slide">
+										<a id="{{ image.id }}" class="btn btn-danger remove-image"><span class="glyphicon glyphicon-trash"></span></a>
+									</div>
+								{% else %}
+									<div class="item">
+										<img src="/media/{{ image.image }}" alt="slide">
+										<a id="{{ image.id }}" class="btn btn-danger remove-image"><span class="glyphicon glyphicon-trash"></span></a>
+									</div>
+								{% endif %}
+							{% endfor %}
+						</div>
+						<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+							<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</a>
+						<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+							<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
+					</div>
+				</div>
+
 	        {% endif %}
+	        <hr style="border-color: white;">
 	        <button class="btn btn-primary" class="form-control" type="submit" id="submit_good ">Зберегти</button>
 		</form>
 
@@ -30,10 +83,9 @@
 	<script type="text/javascript">
 		$( document ).ready(function(){
 
-			$('label[for="id_name"]').text('Назва');
-			$('label[for="id_description"]').text('Опис');
-			$('label[for="id_price"]').text('Ціна');
-			$('label[for="id_image"]').text('Зображення');
+			$.ajaxSetup({
+		  		data: { csrfmiddlewaretoken: '{{ csrf_token }}' },
+			});
 
 			if("{{ state }}"=="edit"){
 				// alert('edit');
@@ -41,57 +93,35 @@
 				$("#id_name").val("{{ name }}");
 				$("#id_description").val(`{{ description }}`);
 				$("#id_price").val("{{ price }}");
-				$("#old_image").attr("src", "/media/{{ image }}");
+
+
 			}
+
+			$(".remove-image").on('click', function(){
+				var some_id = $(this).attr("id");
+				$.post("/admin/ajax/delete_image/", { 'some_id' : some_id }, function(data){
+					if(data == "ok"){
+						$(".carousel-indicators li").last().remove();
+						// $('#myCarousel').carousel('next');
+						var $carousel = $("#myCarousel");
+						var ActiveElement = $carousel.find('.item.active');
+						  ActiveElement.remove();
+						  var NextElement = $carousel.find('.item').first();
+						  NextElement.addClass('active');
+						$carousel.find("ol li").removeClass("active");
+						  $carousel.find("ol li").first().addClass("active");
+					} else{
+						alert("Sorry, some error");	
+					}
+				});
+			});
 
 			$("#id_name").addClass("form-control");
 			$("#id_description").addClass("form-control");
 			$("#id_price").addClass("form-control");
 			$("#id_image").addClass("form-control");
+
 		});
-
-			// $('#good_form').on('submit', function(event){
-			//     event.preventDefault();
-			//     if("{{ state }}"!=="edit"){
-			// 	    $.ajax({
-			// 	        url : "/admin/ajax/add_good/", // the endpoint
-			// 	        type : "POST", // http method
-			// 	        data : {
-			// 	        	name : $('#id_name').val(),
-			// 	        	description : $('#id_description').val(),
-			// 	        	price : $('#id_price').val(),
-			// 	        	image : $('#id_image').val(),
-			// 	        	csrfmiddlewaretoken : "{{ csrf_token }}",
-			// 	        }, // data sent with the post request
-
-			// 	        // handle a successful response
-			// 	        success : function(json) {
-			// 	        	window.location.href = '/admin/';
-			// 	        	// alert(json);
-			// 	        }
-			// 	    });
-			// 	} else {
-			// 		$.ajax({
-			// 	        url : "/admin/ajax/edit_good/", // the endpoint
-			// 	        type : "POST", // http method
-			// 	        data : {
-			// 	        	name : $('#id_name').val(),
-			// 	        	description : $('#id_description').val(),
-			// 	        	price : $('#id_price').val(),
-			// 	        	image : $('#id_image').val(),
-			// 	        	csrfmiddlewaretoken : "{{ csrf_token }}",
-			// 	        	id : "{{ id }}"
-			// 	        }, // data sent with the post request
-
-			// 	        // handle a successful response
-			// 	        success : function(json) {
-			// 	        	window.location.href = '/admin/';
-			// 	        	// alert(json);
-			// 	        }
-			// 		});
-			// 	}
-			// });
-		// });
 
 	</script>
 	

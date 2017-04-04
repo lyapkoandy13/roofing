@@ -7,6 +7,7 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^ajax/get_goods/$', views.ajax_get_goods, name='ajax_get_goods'),
+    url(r'^ajax/get_images/$', views.ajax_get_images, name='ajax_get_images'),
 ] 
 
 if settings.DEBUG:

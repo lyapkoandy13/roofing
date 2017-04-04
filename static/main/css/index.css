@@ -96,10 +96,10 @@ body{
 	width: 826px;
 }
 
-#modal-image-div {
+.badCarousel {
 	margin-top: 15px !important;
 	margin-bottom: 15px !important;
-	overflow: auto;
+	/*overflow: auto;*/
 }
 
 .modal-close {
@@ -117,6 +117,34 @@ span.reserved {
     margin-left: 6px;
     letter-spacing: 0.03em;
 }
+
+#modal-images {
+	margin-top: 25px;
+	margin-bottom: 25px;
+	background-color: #e6e6e6; 
+}
+
+#modal-images .item {
+	min-height: 450px;
+	max-height: 450px;
+	text-align: center;
+	vertical-align: center;
+	position: relative;
+}
+
+#modal-images .item img {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#modal-text {
+	white-space: pre-wrap;
+	max-width: 300px;
+	margin: auto;
+	text-align: left;
+} 
 
 @media screen and (max-width: 855px) {
 	#search-bar {

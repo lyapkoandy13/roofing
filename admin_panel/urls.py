@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^ajax/move_down/$', views.ajax_move_down, name='ajax_move_down'),
     url(r'^add_good/', views.add_good, name='add_good'),
     url(r'^edit_good/', views.edit_good, name='edit_good'),
+	url(r'^ajax/delete_image/', views.ajax_delete_image, name='ajax_delete_image'),
 ]

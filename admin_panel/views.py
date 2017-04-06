@@ -94,8 +94,9 @@ def edit_good(request):
 
 def ajax_remove_good(request):
     good = Good.objects.filter(id=int(request.POST.get('id')))
-    for image in good.images:
-        image.delete()
+    for some_good in good:
+        for image in some_good.images.all():
+            image.delete()
     good.delete()
     return HttpResponse('OK')
 
@@ -152,10 +153,10 @@ def ajax_move_down(request):
     return HttpResponse(good_lower.id)
 
 def ajax_delete_image(request):
-    # try:
-    some_id = request.POST.get('some_id')
-    Image.objects.filter(id=int(some_id)).delete()
-    # except:
-    #     return HttpResponse('no')
+    try:
+        some_id = request.POST.get('some_id')
+        Image.objects.filter(id=int(some_id)).delete()
+    except:
+        return HttpResponse('no')
     return HttpResponse('ok')
 
